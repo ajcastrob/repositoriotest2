@@ -1,49 +1,31 @@
 import numpy as np
 
 
+def _calcular_promedio_por_columna(datos, columna):
+    meses = datos[:, 3].astype(int)
+    promedio_mes = np.zeros(12)
+
+    for mes in range(1, 13):
+        datos_mes = datos[meses == mes]
+        if datos_mes.size > 0:
+            columna_mes = datos_mes[:, columna].astype(float)
+            promedio_mes[mes - 1] = np.mean(columna_mes)
+    return promedio_mes
+
+
 def calcular_promedio_temperatura(datos):
     # Columnas: temperatura, humedad, presión atmosférica, meses del año.
-    # Separar los meses.
-    meses = datos[:, 3].astype(int)
-
-    temperatura_promedio_mes = np.zeros(12)
-    for mes in range(12):
-        datos_mes = datos[mes + 1 == meses]
-        # Calcular la tempeartura promedio.
-        temperatura_mes = datos_mes[:, 0].astype(float)
-        temperatura_promedio_mes[mes] = sum(temperatura_mes) / len(temperatura_mes)
-
-    return temperatura_promedio_mes
+    return _calcular_promedio_por_columna(datos, 0)
 
 
 def calcular_promedio_humedad(datos):
     # Columnas: temperatura, humedad, presión atmosférica, meses del año.
-    # Separar los meses.
-    meses = datos[:, 3].astype(int)
-
-    humedad_promedio_mes = np.zeros(12)
-    for mes in range(12):
-        datos_mes = datos[mes + 1 == meses]
-        # Calcular la humedad promedio.
-        humedad_mes = datos_mes[:, 1].astype(float)
-        humedad_promedio_mes[mes] = sum(humedad_mes) / len(humedad_mes)
-
-    return humedad_promedio_mes
+    return _calcular_promedio_por_columna(datos, 1)
 
 
 def calcular_promedio_presion(datos):
     # Columnas: temperatura, humedad, presión atmosférica, meses del año.
-    # Separar los meses.
-    meses = datos[:, 3].astype(int)
-
-    presion_promedio_mes = np.zeros(12)
-    for mes in range(12):
-        datos_mes = datos[mes + 1 == meses]
-        # Calcular la presión mes.
-        presion_mes = datos_mes[:, 2].astype(float)
-        presion_promedio_mes[mes] = sum(presion_mes) / len(presion_mes)
-
-    return presion_promedio_mes
+    return _calcular_promedio_por_columna(datos, 2)
 
 
 def imprimir_temperatura(promedio_temperatura):

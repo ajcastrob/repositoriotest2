@@ -1,3 +1,5 @@
+import sys
+import os
 from leer_datos import obtener_datos
 from operaciones import (
     calcular_promedio_humedad,
@@ -10,8 +12,17 @@ from operaciones import (
 
 
 def main():
+    if len(sys.argv) > 1:
+        archivo = sys.argv[1]
+        if not os.path.exists(archivo):
+            print(f"Error: El archivo '{archivo}' no fue encontrado.")
+            return
+    else:
+        archivo = "datos.txt"
+        if not os.path.exists(archivo):
+            print(f"Error: El archivo por defecto '{archivo}' no fue encontrado.")
+            return
 
-    archivo = "datos.txt"
     comprobar, data_base = obtener_datos(archivo)
 
     if comprobar:
