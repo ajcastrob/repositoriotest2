@@ -1,5 +1,4 @@
 import numpy as np
-from leer_datos import obtener_datos
 
 
 def calcular_promedio_temperatura(datos):
